@@ -1,0 +1,34 @@
+{
+  "name": "profitbricks-client",
+  "version": "0.0.1",
+  "description": "Library to set up a profitbricks datacenter.",
+  "main": "index.js",
+  "scripts": {
+    "coffee": "coffee",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "profitbricks/list": "coffee --nodejs --harmony-generators profitbricks/list.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actano/profitbricks-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/actano/profitbricks-client/issues"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.33",
+    "coffee-script": "^1.9.3",
+    "debug": "^2.2.0",
+    "diff": "^2.1.3",
+    "ip": "^0.3.3",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "superagent": "^1.4.0",
+    "superagent-as-promised": "^3.2.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
+  }
+}
