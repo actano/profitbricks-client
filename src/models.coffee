@@ -1,27 +1,5 @@
 _ = require 'lodash'
 
-class BasicItem
-    getName: ->
-        return @json.properties.name
-
-    diff: (other, @parents, arrays...) ->
-        @_setHierarchyString()
-        @_diffProperties other
-        @_diffArrays arrays
-
-    _setHierarchyString: ->
-        @parents += "#{@constructor.name} ('#{@getName()}') -> "
-
-    _diffProperties: (other) ->
-        for key, myValue of @json.properties
-            otherValue = other.properties[key]
-            if not _.isEqual myValue, otherValue
-                console.log "#{parents}#{key}: \'#{otherValue}\' should be \'#{myValue}\'"
-
-    _diffArrays: (arrays) ->
-        console.log arrays.length
-
-
 class Datacenter
     constructor: (actanoJson, @defaults) ->
         @lans = []
