@@ -1,8 +1,9 @@
 Promise = require 'bluebird'
-DcInspector = require './datacenterInspector'
-{Datacenter} = require './models'
+DcInspector = require './../src/datacenterInspector'
+{Datacenter} = require './../src/models'
 {defaults} = require './datacenterDefinition'
 {complexDatacenter} = require './datacenterDefinition'
+{simpleDatacenter} = require './datacenterDefinition'
 
 testDiffLansOnly = Promise.coroutine  ->
     dcDefinition =
@@ -68,7 +69,7 @@ testFindDuplicates = ->
 
 testFullDc = Promise.coroutine ->
     inspector = new DcInspector()
-    dc = new Datacenter complexDatacenter, defaults
+    dc = new Datacenter simpleDatacenter, defaults
     yield inspector.inspect dc
 
 #testDiffArrays()

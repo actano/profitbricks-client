@@ -36,7 +36,7 @@ simpleDatacenter =
             ips: ['10.0.0.1']
         ]
         volumes: [
-            name: undefined
+            name: 'ssh-box - HDD'
         ]
     ]
 
