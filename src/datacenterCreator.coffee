@@ -25,11 +25,18 @@ class DatacenterCreator
         yield @_addMissingServers datacenter.getServers()
 
     createLan: Promise.coroutine (lan) ->
+        remoteLans = yield @restClient.listLans()
+        utils.itemWithThisNameAlreadyExistsGuard 'LAN', remoteLans, lan.getName()
+
         @lans = null
         yield @restClient.createLan lan.toJson()
         yield @restClient.waitTillOpenTasksHaveFinished()
 
     createServer: Promise.coroutine (server) ->
+        remoteServers = yield @restClient.listServers()
+        utils.itemWithThisNameAlreadyExistsGuard 'Server', remoteServers, server.getName()
+
+        # TODO: If more than one volume is needed: Implement it here
         volume = yield @createVolume server.volumes[0]
         server.setBootVolumeId volume.id
         yield @_setLanIds server.getNics()
@@ -38,10 +45,14 @@ class DatacenterCreator
         yield @restClient.waitTillOpenTasksHaveFinished()
 
     createVolume: Promise.coroutine (volume) ->
+        remoteVolumes = yield @restClient.listVolumes()
+        utils.itemWithThisNameAlreadyExistsGuard 'Volume', remoteVolumes, volume.getName()
+
         imageOrSnapshot = yield @findImageOrSnapshot volume.getImageName()
         volume.setImageId imageOrSnapshot.id
 
         createdVolume = yield @restClient.createVolume volume.toJson()
+
         yield @restClient.waitTillOpenTasksHaveFinished()
         return createdVolume
 
