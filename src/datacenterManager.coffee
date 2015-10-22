@@ -61,6 +61,9 @@ module.exports = (user = process.env['PROFITBRICKS_USER'],
         snapshots = yield @listSnapshots()
         return utils.getItemByName 'Image or Snapshot', images.concat(snapshots), name
 
+    service.waitTillOpenTasksHaveFinished = Promise.coroutine ->
+        yield basicClient.waitTillOpenTasksHaveFinished()
+
     _createDatacenter = Promise.coroutine (data) ->
         route = 'datacenters'
         return yield basicClient.post route, data
@@ -68,9 +71,6 @@ module.exports = (user = process.env['PROFITBRICKS_USER'],
     _deleteDatacenter = Promise.coroutine (datacenterId) ->
         route = "datacenters/#{datacenterId}"
         yield basicClient.delete route
-
-    service.waitTillOpenTasksHaveFinished = Promise.coroutine ->
-        yield basicClient.waitTillOpenTasksHaveFinished()
 
     return service
 
