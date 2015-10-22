@@ -9,8 +9,7 @@ class DatacenterToolbox
         @restClient = null
 
     startAllServers: Promise.coroutine () ->
-        unless @_inititalized()
-            yield @_initialize()
+        yield @_ensureInitialization()
 
         servers = yield @restClient.listServers()
         for server in servers
@@ -19,14 +18,17 @@ class DatacenterToolbox
         yield @restClient.waitTillOpenTasksHaveFinished()
 
     stopAllServers: Promise.coroutine () ->
-        unless @_inititalized()
-            yield @_initialize()
+        yield @_ensureInitialization()
 
         servers = yield @restClient.listServers()
         for server in servers
             yield @restClient.stopServer(server.id)
 
         yield @restClient.waitTillOpenTasksHaveFinished()
+
+    _ensureInitialization: Promise.coroutine ->
+        unless @_inititalized()
+            yield @_initialize()
 
     _initialize: Promise.coroutine ->
         datacenter = yield @dcManager.findDatacenter @datacenterName
