@@ -16,7 +16,7 @@ class DatacenterToolbox
         return @restClient?
 
     startAllServers: Promise.coroutine () ->
-        until @_inititalized()
+        unless @_inititalized()
             yield @_initialize()
 
         servers = yield @restClient.listServers()
@@ -26,7 +26,7 @@ class DatacenterToolbox
         yield @restClient.waitTillOpenTasksHaveFinished()
 
     stopAllServers: Promise.coroutine () ->
-        until @_inititalized()
+        unless @_inititalized()
             yield @_initialize()
 
         servers = yield @restClient.listServers()
