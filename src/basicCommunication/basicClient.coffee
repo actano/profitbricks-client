@@ -12,15 +12,15 @@ TaskQueue = require './taskQueue'
     This function provides the basic rest calls and takes care of
     Error Handling, Logging and Synchronization
 ###
-module.exports = (user, password, sleepTimeBetweenStatusRequests = 2) ->
-    if not user? or not password?
+module.exports = (username, password, sleepTimeBetweenStatusRequests = 2) ->
+    if not username? or not password?
         throw new Error "no authentification provided"
 
     service = {}
 
     service.status = Promise.coroutine (url) ->
         try
-            response = yield request.get(url).auth(user, password)
+            response = yield request.get(url).auth(username, password)
             return response.res.body.metadata
         catch err
             try
@@ -64,7 +64,7 @@ module.exports = (user, password, sleepTimeBetweenStatusRequests = 2) ->
         yield @sendRequest req, "DELETE #{route}"
 
     service.sendRequest = Promise.coroutine (request, msg, data) ->
-        request = request.auth user, password
+        request = request.auth username, password
         try
             console.info "> #{msg}"
             if data?
