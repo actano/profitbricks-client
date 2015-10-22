@@ -8,6 +8,8 @@ require('superagent-as-promised') request
 
 TaskQueue = require './taskQueue'
 
+URL_PREFIX = 'https://api.profitbricks.com/rest/'
+
 ###
     This function provides the basic rest calls and takes care of
     Error Handling, Logging and Synchronization
@@ -32,7 +34,7 @@ module.exports = (username, password, sleepTimeBetweenStatusRequests = 2) ->
     taskQueue = new TaskQueue service.status, sleepTimeBetweenStatusRequests
 
     service.get = Promise.coroutine (route) ->
-        url = 'https://api.profitbricks.com/rest/' + route
+        url = URL_PREFIX + route
         req = request.get url
         response = yield @sendRequest req, "GET #{route}"
         return response.body
@@ -41,7 +43,7 @@ module.exports = (username, password, sleepTimeBetweenStatusRequests = 2) ->
         return (yield @get route).items
 
     service.post = Promise.coroutine (route, data) ->
-        url = 'https://api.profitbricks.com/rest/' + route
+        url = URL_PREFIX + route
         req = request.post url
 
         if data?
@@ -51,7 +53,7 @@ module.exports = (username, password, sleepTimeBetweenStatusRequests = 2) ->
         return response.body
 
     service.patch = Promise.coroutine (route, data) ->
-        url = 'https://api.profitbricks.com/rest/' + route
+        url = URL_PREFIX + route
 
         req = request.patch(url).set 'Content-Type', 'application/vnd.profitbricks.partial-properties+json'
         response = yield @sendRequest req, "PATCH #{route}", data
@@ -59,7 +61,7 @@ module.exports = (username, password, sleepTimeBetweenStatusRequests = 2) ->
         return response.body
 
     service.delete = Promise.coroutine (route) ->
-        url = 'https://api.profitbricks.com/rest/' + route
+        url = URL_PREFIX + route
         req = request.del url
         yield @sendRequest req, "DELETE #{route}"
 
