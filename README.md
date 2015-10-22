@@ -4,32 +4,27 @@ Prerequisites:
 - [git](https://git-scm.com/downloads) in your PATH
 - [node and npm](https://nodejs.org/en/) in your PATH
 
-1. clone this repo: `git clone https://github.com/actano/bootstrap.git`
-2. enter the directory: `cd bootstrap`
+1. clone this repo: `git clone https://github.com/actano/profitbricks-client.git`
+2. enter the directory: `cd profitbricks-client`
 3. install npm modules: `npm i`
-4. run the script, for instance: `npm run coffee profitbricks/restAPI/playground.coffee`
+4. run the script, for instance: `$(npm bin)/coffee examples/executor.coffee`
 
+# Authentication
+
+Authentication with ProfitBricks is made via username and password. To set these use the environment variables
+`PROFITBRICKS_USER` and `PROFITBRICKS_PASSWORD`.
 
 # Usage
 
-	{Builder} = require './builder'
-	Synchronizer = require './synchronizer'
-	synchronizer = new Synchronizer builder
+    {Builder} = require './builder'
+    Synchronizer = require './synchronizer'
+    synchronizer = new Synchronizer builder
 
-`Builder` creates an internal datastructure which is similar to the datastructure 
+`Builder` creates an internal datastructure which is similar to the datastructure
 of [profitbricks](https://devops.profitbricks.com/api/rest/#overview)
 
 To see how to create a datacenter with servers and LANs take a look
-into the `playgroud.coffee`. You have a builder fluent API and a JSON import API.
-
-To create a datacenter from a builder instance on profitbricks, you have this API:
-
-`synchronizer.uploadAndReplace()` - creates a new datacenter, delete if there is already an existing one with the same name
-
-`synchronizer.verify()` - checks if the datacenter in the builder is equal to the remote datacenter at profitbricks
-
-`synchronizer.addMissingServers()` - creates missing servers, which are contained in the builder but are missing remote at profitbricks
-
+into the `examples/datacenterDefinition.coffee`.
 
 ## Issues & Limitations
 
