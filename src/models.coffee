@@ -11,8 +11,8 @@ class Datacenter
                 description: actanoJson.description ? @defaults.datacenter.description
                 location: actanoJson.location ? @defaults.datacenter.location
 
-        @_setLans actanoJson.lans
-        @_setServers actanoJson.servers
+        @_addLans actanoJson.lans
+        @_addServers actanoJson.servers
 
     getName: ->
         return @json.properties.name
@@ -26,12 +26,12 @@ class Datacenter
     toJson: ->
         return @json
 
-    _setLans: (lans = []) ->
+    _addLans: (lans = []) ->
         for lanJson in lans
             lan = new Lan lanJson, @defaults
             @_addLan lan
 
-    _setServers: (servers = []) ->
+    _addServers: (servers = []) ->
         for serverJson in servers
             server = new Server serverJson, @defaults
             @_addServer server
@@ -75,16 +75,8 @@ class Server
                 volumes:
                     items: []
 
-        for volumeJson in actanoJson.volumes
-            until volumeJson.name?
-                @_setVolumeName volumeJson
-
-            volume = new Volume volumeJson, @defaults
-            @_addVolume volume
-
-        for nicJson in actanoJson.nics
-            nic = new Nic nicJson, @defaults
-            @_addNic nic
+        @_addVolumes actanoJson.volumes
+        @_addNics actanoJson.nics
 
     getName: ->
         return @json.properties.name
@@ -97,6 +89,19 @@ class Server
 
     setBootVolumeId: (id) ->
         @json.properties.bootVolume.id = id
+
+    _addVolumes: (volumes) ->
+        for volumeJson in volumes
+            unless volumeJson.name?
+                @_setVolumeName volumeJson
+
+            volume = new Volume volumeJson, @defaults
+            @_addVolume volume
+
+    _addNics: (nics) ->
+        for nicJson in nics
+            nic = new Nic nicJson, @defaults
+            @_addNic nic
 
     _addVolume: (volume) ->
         @volumes.push volume
