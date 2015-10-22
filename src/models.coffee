@@ -42,7 +42,6 @@ class Datacenter
     _addServer: (server) ->
         @servers.push server
 
-
 class Lan
     constructor: (actanoJson, defaults) ->
         @json =
@@ -55,7 +54,6 @@ class Lan
 
     toJson: ->
         return @json
-
 
 class Server
     constructor: (actanoJson, @defaults) ->
@@ -121,7 +119,6 @@ class Server
 
         return result
 
-
 class Volume
     constructor: (actanoJson, defaults) ->
         @imageName = actanoJson.image ? defaults.volume.image
@@ -146,7 +143,6 @@ class Volume
     toJson: ->
         return @json
 
-
 class Nic
     constructor: (actanoJson, defaults = {}) ->
         @json =
@@ -165,7 +161,6 @@ class Nic
 
     toJson: ->
         return @json
-
 
 module.exports = {
     Datacenter
