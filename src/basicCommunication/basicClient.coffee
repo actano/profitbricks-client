@@ -1,12 +1,12 @@
 debug =
-    request: require('debug')('pb-client-request')
-    response: require('debug')('pb-client-response')
+    request: require('debug') 'pb-client-request'
+    response: require('debug') 'pb-client-response'
 
 Promise = require 'bluebird'
-request = require('superagent')
-require('superagent-as-promised')(request)
+request = require 'superagent'
+require('superagent-as-promised') request
 
-TaskQueue = require('./taskQueue')
+TaskQueue = require './taskQueue'
 
 ###
     This function provides the basic rest calls and takes care of
@@ -42,10 +42,10 @@ module.exports = (user, password, sleepTimeBetweenStatusRequests = 2) ->
 
     service.post = Promise.coroutine (route, data) ->
         url = 'https://api.profitbricks.com/rest/' + route
-        req = request.post(url)
+        req = request.post url
 
         if data?
-            req = req.set('Content-Type', 'application/vnd.profitbricks.resource+json')
+            req = req.set 'Content-Type', 'application/vnd.profitbricks.resource+json'
 
         response = yield @sendRequest req, "POST #{route}", data
         return response.body
@@ -53,7 +53,7 @@ module.exports = (user, password, sleepTimeBetweenStatusRequests = 2) ->
     service.patch = Promise.coroutine (route, data) ->
         url = 'https://api.profitbricks.com/rest/' + route
 
-        req = request.patch(url).set('Content-Type', 'application/vnd.profitbricks.partial-properties+json')
+        req = request.patch(url).set 'Content-Type', 'application/vnd.profitbricks.partial-properties+json'
         response = yield @sendRequest req, "PATCH #{route}", data
 
         return response.body
@@ -64,7 +64,7 @@ module.exports = (user, password, sleepTimeBetweenStatusRequests = 2) ->
         yield @sendRequest req, "DELETE #{route}"
 
     service.sendRequest = Promise.coroutine (request, msg, data) ->
-        request = request.auth(user, password)
+        request = request.auth user, password
         try
             console.info "> #{msg}"
             if data?

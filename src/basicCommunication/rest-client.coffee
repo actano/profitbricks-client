@@ -1,5 +1,5 @@
 Promise = require 'bluebird'
-utils = require('../utils')
+utils = require '../utils'
 
 module.exports = (basicClient, datacenterId) ->
     service = {}

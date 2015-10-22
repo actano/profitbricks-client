@@ -17,7 +17,7 @@ module.exports = (getStatusMethod, sleepTimeInSeconds) ->
             clear()
             throw error
 
-        clear();
+        clear()
 
     service.updateTaskStatus = Promise.coroutine ->
         _openTasks = []
