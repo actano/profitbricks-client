@@ -14,14 +14,6 @@ utils =
             throw new Error "More than one #{itemType} with name #{name} found"
         return res[0]
 
-    getItemByNameSimple: (items, name) ->
-        res = @getItemsByName items, name
-        if res.length < 1
-            return null
-        if res.length > 1
-            throw new Error "More than one #{itemType} with name #{name} found"
-        return res[0]
-
     getItemsByName: (items, name) ->
         return items.filter ((item) -> item.properties.name is name)
 
@@ -41,7 +33,7 @@ utils =
             throw err
 
     printIps: (server) ->
-        for item, index in server.entities.nics.items
+        for item in server.entities.nics.items
             console.log "#{item.name}: #{item.properties.ips.join(' | ')}"
 
     printTimeInMinutes: (startTime) ->
