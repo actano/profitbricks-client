@@ -57,13 +57,13 @@ class DatacenterCreator
         return createdVolume
 
     findLan: Promise.coroutine (name) ->
-        until @lans?
+        unless @lans?
             @lans = yield @restClient.listLans()
 
         return utils.getItemByName('LAN', @lans, name)
 
     findImageOrSnapshot: Promise.coroutine (name) ->
-        until @imagesAndSnapshots?
+        unless @imagesAndSnapshots?
             yield @_loadImagesAndSnapshots()
 
         return utils.getItemByName('Image or Snapshot', @imagesAndSnapshots, name)
