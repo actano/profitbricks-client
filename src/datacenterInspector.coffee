@@ -25,7 +25,6 @@ class DatacenterInspector
         @restClient = RestClient @dcManager.getBasicClient(), datacenterId
 
     _diffLans: (path) ->
-        console.log @remoteDatacenter.entities.lans.items
         @_diffArrays @datacenter.getLans(),
             @remoteDatacenter.entities.lans.items,
             'Lan',
