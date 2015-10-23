@@ -47,7 +47,7 @@ class DatacenterInspector
             'Server',
             path
 
-        remoteServers = @_createMap @remoteDatacenter.entities.servers.items
+        remoteServers = @_createMapByName @remoteDatacenter.entities.servers.items
 
         for server in @datacenter.getServers()
             serverPath = "#{path} Server ('#{server.getName()}') ->"
@@ -80,7 +80,7 @@ class DatacenterInspector
         @_diffPropertiesOfArrays model, remote, type, path
 
     _diffPropertiesOfArrays: (model, remote, type, _path) ->
-        remote = @_createMap remote
+        remote = @_createMapByName remote
         for item in model
             path = "#{_path} #{type} ('#{item.getName()}') ->"
             remoteItem = remote[item.getName()]
@@ -96,7 +96,7 @@ class DatacenterInspector
             if not _.isEqual modelValue, remoteValue
                 console.info "#{path} #{key}: Remote value '#{remoteValue}' does not match defined value '#{modelValue}'"
 
-    _createMap: (array) ->
+    _createMapByName: (array) ->
         array.reduce (previousValue, currentValue) ->
             previousValue[currentValue.properties.name] = currentValue
             return previousValue
