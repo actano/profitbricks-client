@@ -60,13 +60,13 @@ class DatacenterCreator
         unless @lans?
             @lans = yield @restClient.listLans()
 
-        return utils.getItemByName('LAN', @lans, name)
+        return utils.getItemByName 'LAN', @lans, name
 
     findImageOrSnapshot: Promise.coroutine (name) ->
         unless @imagesAndSnapshots?
             yield @_loadImagesAndSnapshots()
 
-        return utils.getItemByName('Image or Snapshot', @imagesAndSnapshots, name)
+        return utils.getItemByName 'Image or Snapshot', @imagesAndSnapshots, name
 
     _initializeRestClient: (datacenterId) ->
         @restClient = RestClient @dcManager.getBasicClient(), datacenterId

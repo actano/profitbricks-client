@@ -32,7 +32,10 @@ class DatacenterInspector
             path
 
     _diffVolumes: (path) ->
-        volumes = @datacenter.getServers().map( (server) -> server.getVolumes() ).reduce (x, y) -> x.concat y
+        volumes = @datacenter.getServers()
+            .map (server) -> server.getVolumes()
+            .reduce (x, y) -> x.concat y
+
         @_diffArrays volumes,
             @remoteDatacenter.entities.volumes.items,
             'Volume',
@@ -100,6 +103,10 @@ class DatacenterInspector
         , {}
 
     _findDuplicates: (array) ->
-        return _.uniq array.sort().filter( (element, index, array) -> element is array[index + 1] ), true
+        duplicatedElements = array
+            .sort()
+            .filter (element, index, array) -> element is array[index + 1]
+
+        return _.uniq duplicatedElements, true
 
 module.exports = DatacenterInspector
