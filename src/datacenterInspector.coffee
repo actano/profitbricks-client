@@ -11,8 +11,8 @@ class DatacenterInspector
         @diffs = []
 
     inspect: Promise.coroutine (@datacenter) ->
-        @remoteDatacenter = yield @dcManager.findDatacenter @datacenter.getName()
-        @_initializeRestClient @remoteDatacenter.id
+        {id: datacenterId} = yield @dcManager.findDatacenter @datacenter.getName()
+        @_initializeRestClient datacenterId
         @remoteDatacenter = yield @restClient.getDatacenter()
 
         path = "Datacenter ('#{@datacenter.getName()}') -> "
