@@ -38,14 +38,3 @@ into the `examples/datacenterDefinition.coffee`.
 
 Maybe this does not happen on production (because you're using a static IP), but when you're using a public IP which is dynamic, you can't
 specify it in your builder. If you call `verify()` you will receive an diff for the IP.
-
-#### LAN names are changed when using the Webinterface
-
-If you change something in the [webinterface of profitbricks](https://my.profitbricks.com/dashboard)
-__even__ if it's just a visual movement of an entity, the LAN names will be changed.
-So after you confirm the provisioning, the next `synchronizer.verify()` call will break with an error like this:
-
-```
-unhandled rejection Error: LAN with name public not found. Available LANs: Switch for LAN 2,Switch for LAN 1
-```
-Even worse: you cannot rename the LAN anymore, thanks to @profitbricks :+1:
