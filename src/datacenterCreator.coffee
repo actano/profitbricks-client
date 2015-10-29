@@ -85,7 +85,7 @@ class DatacenterCreator
 
     _addServers: Promise.coroutine (servers) ->
         for server, index in servers
-            console.log "server #{index+1}/#{servers.length+1}"
+            console.log "server #{index+1}/#{servers.length}"
             yield @createServer server
 
     _addMissingServers: Promise.coroutine (definedServers) ->
