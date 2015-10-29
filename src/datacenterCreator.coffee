@@ -29,6 +29,7 @@ class DatacenterCreator
         utils.itemWithThisNameAlreadyExistsGuard 'LAN', remoteLans, lan.getName()
 
         @lans = null
+        console.log "creating lan '#{lan.getName()}'"
         yield @restClient.createLan lan.toJson()
         yield @restClient.waitTillOpenTasksHaveFinished()
 
@@ -37,10 +38,12 @@ class DatacenterCreator
         utils.itemWithThisNameAlreadyExistsGuard 'Server', remoteServers, server.getName()
 
         # TODO: If more than one volume is needed: Implement it here
+        console.log "creating volume for server '#{server.getName()}'"
         volume = yield @createVolume server.volumes[0]
         server.setBootVolumeId volume.id
         yield @_setLanIds server.getNics()
 
+        console.log "creating server '#{server.getName()}'"
         yield @restClient.createServer server.toJson()
         yield @restClient.waitTillOpenTasksHaveFinished()
 
@@ -81,7 +84,8 @@ class DatacenterCreator
             yield @createLan lan
 
     _addServers: Promise.coroutine (servers) ->
-        for server in servers
+        for server, index in servers
+            console.log "server #{index+1}/#{servers.length+1}"
             yield @createServer server
 
     _addMissingServers: Promise.coroutine (definedServers) ->
