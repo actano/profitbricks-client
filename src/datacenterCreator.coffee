@@ -91,7 +91,6 @@ class DatacenterCreator
     _addMissingServers: Promise.coroutine (definedServers) ->
         existingServers = yield @restClient.listServers()
         missingServers = @_calculateMissingServers definedServers, existingServers
-        console.info "---\nTrying to add the following servers:\n#{serverNames}\n---"
         yield @_addServers missingServers
 
     _calculateMissingServers: (definedServers, existingServers) ->
