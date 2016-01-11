@@ -20,6 +20,10 @@ module.exports = (user = process.env['PROFITBRICKS_USER'],
         datacenters = yield @listDatacenters()
         return utils.getItemByName 'Datacenter', datacenters, name
 
+    service.hasDatacenter = Promise.coroutine (name) ->
+        datacenters = yield @listDatacenters()
+        return utils.getItemsByName(datacenters, name).length > 0
+
     service.createDatacenter = Promise.coroutine (data) ->
         datacenters = yield @listDatacenters()
         utils.itemWithThisNameAlreadyExistsGuard 'Datacenter', datacenters, data.properties.name
