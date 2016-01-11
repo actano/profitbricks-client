@@ -47,6 +47,8 @@ class DatacenterCreator
         yield @restClient.createServer server.toJson()
         yield @restClient.waitTillOpenTasksHaveFinished()
 
+        return server
+
     createVolume: Promise.coroutine (volume) ->
         remoteVolumes = yield @restClient.listVolumes()
         utils.itemWithThisNameAlreadyExistsGuard 'Volume', remoteVolumes, volume.getName()
