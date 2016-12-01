@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Library to set up a profitbricks datacenter.",
   "author": "Actano",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "coffee -c -o lib src/"
+  },
   "dependencies": {
     "bluebird": "^2.9.33",
     "debug": "^2.2.0",
